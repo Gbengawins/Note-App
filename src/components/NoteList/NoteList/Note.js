@@ -1,24 +1,27 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import LocalStorage from "../../Utils/localStorage";
 import { useStateValue } from "../../statemanagement";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
 import { useNoteStyles as useStyles } from "./styles";
-import Checkbox from "@material-ui/core/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
+
 function Note(props) {
   const { item, row } = props;
   const { id, title, category } = item;
   const [checkbox, setCheckbox] = React.useState(false);
   const classes = useStyles();
   const [, dispatch] = useStateValue();
-function handleChangeCheckBox() {
+
+  function handleChangeCheckBox() {
     setCheckbox(!checkbox);
     props.setCheckbox(!checkbox, id);
   }
-function deleteNote() {
+
+  function deleteNote() {
     const NoteBookOfTheNote = item.notebook;
     let getObjectsOfTheNoteBook = JSON.parse(
       LocalStorage.getNotebooks(NoteBookOfTheNote)
@@ -26,7 +29,8 @@ function deleteNote() {
     if (getObjectsOfTheNoteBook === null) {
       getObjectsOfTheNoteBook = JSON.parse(LocalStorage.getNotes());
     }
-let removeNote = getObjectsOfTheNoteBook.filter(
+
+    let removeNote = getObjectsOfTheNoteBook.filter(
       note => note.id !== item.id
     );
     LocalStorage.rmNoteBook(
@@ -36,15 +40,19 @@ let removeNote = getObjectsOfTheNoteBook.filter(
       NoteBookOfTheNote === "" ? "notes" : NoteBookOfTheNote,
       JSON.stringify(removeNote)
     );
-dispatch({ type: "newNote", notes: removeNote });
+
+    dispatch({ type: "newNote", notes: removeNote });
   }
-function updateNote() {
+
+  function updateNote() {
     dispatch({ type: "openModal", modal: true, edit: id });
   }
-function showNote() {
+
+  function showNote() {
     dispatch({ type: "showMessage", showModal: true, show: id });
   }
-return (
+
+  return (
     <Paper className={classes.paper}>
       <Grid container>
         <div className={title}>
@@ -80,4 +88,5 @@ return (
     </Paper>
   );
 }
+
 export default Note;
