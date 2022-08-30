@@ -2,15 +2,17 @@ import React from "react";
 import NotesList from "../NotesList";
 import NoteBooks from "../NoteBooks";
 import CreateNote from "../CreateNote";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
 import { StateProvider, initialState, reducer } from "../../statemanagement";
 import ModalBase from "../../Utils/Modal";
 import ShowModal from "../../Utils/ShowModal";
 import { useStyles } from "./styles";
+
 function MainComponent() {
   const classes = useStyles();
-return (
+
+  return (
     <React.Fragment>
       <Paper className={classes.root}>
         <Grid container spacing={3}>
@@ -34,4 +36,5 @@ return (
     </React.Fragment>
   );
 }
+
 export default MainComponent;

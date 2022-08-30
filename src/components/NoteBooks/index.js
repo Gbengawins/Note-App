@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import { useStateValue } from "../../statemanagement";
 import { useListStyles as useStyles } from "./styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
 import FolderIcon from "@material-ui/icons/Folder";
 import LocalStorage from "../../Utils/localStorage";
+
 function NoteBooks() {
   const classes = useStyles();
   const [activeNote, setActiveNote] = useState("all");
   const [, dispatch] = useStateValue();
-/**
+
+  /**
    * show a list of notes of a notebook and dispatch it into Context
    **/
   function showNotesOf(Notebook) {
@@ -43,11 +45,13 @@ function NoteBooks() {
       if (Notebook === "Home") {
         Notes = Home;
       }
-Notes = Notes !== null ? JSON.parse(Notes) : [];
+
+      Notes = Notes !== null ? JSON.parse(Notes) : [];
       dispatch({ type: "newNote", notes: Notes });
     }
   }
-return (
+
+  return (
     <React.Fragment>
       <Typography
         variant="h5"
@@ -58,7 +62,8 @@ return (
       >
         Note Books
       </Typography>
-<div className={classes.noteBooksContainer}>
+
+      <div className={classes.noteBooksContainer}>
         <div className={classes.demo}>
           <List dense={false}>
             <ListItem
@@ -75,7 +80,8 @@ return (
               </ListItemAvatar>
               <ListItemText primary="All" />
             </ListItem>
-<ListItem
+
+            <ListItem
               className={[
                 classes.noteBookList,
                 activeNote === "Next Month" && classes.active
@@ -89,7 +95,8 @@ return (
               </ListItemAvatar>
               <ListItemText primary="Next Month" />
             </ListItem>
-<ListItem
+
+            <ListItem
               className={[
                 classes.noteBookList,
                 activeNote === "University" && classes.active
@@ -103,7 +110,8 @@ return (
               </ListItemAvatar>
               <ListItemText primary="University" />
             </ListItem>
-<ListItem
+
+            <ListItem
               className={[
                 classes.noteBookList,
                 activeNote === "Home" && classes.active
@@ -123,4 +131,5 @@ return (
     </React.Fragment>
   );
 }
+
 export default NoteBooks;
